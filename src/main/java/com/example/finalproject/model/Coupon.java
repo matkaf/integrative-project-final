@@ -36,10 +36,5 @@ public class Coupon {
     @Column(nullable = false)
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Category category;
-
-    @Column(nullable = false)
-    @NotNull
-    @Enumerated(EnumType.STRING)
     private CouponStatus status;
 }
