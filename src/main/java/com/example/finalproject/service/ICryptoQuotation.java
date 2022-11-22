@@ -8,5 +8,5 @@ import java.util.List;
 public interface ICryptoQuotation {
 
     PurchaseOrder getPurchaseOrderById(Long purchaseId);
-    List<Object> getQuotationByPurchaseOrder();
+    List<APICryptoDTO> getQuotationByPurchaseOrder();
 }

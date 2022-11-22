@@ -32,11 +32,11 @@ public class CryptoQuotationService implements ICryptoQuotation {
     }
 
     @Override
-    public List<Object> getQuotationByPurchaseOrder() {
+    public List<APICryptoDTO> getQuotationByPurchaseOrder() {
         String cryptoList = "BTC-BRL,ETH-BRL,LTC-BRL";
 
-        Object[] response = new RestTemplate()
-                .getForEntity("https://economia.awesomeapi.com.br/json/last/" + cryptoList, Object[].class)
+        APICryptoDTO[] response = new RestTemplate()
+                .getForEntity("https://economia.awesomeapi.com.br/json/last/" + cryptoList, APICryptoDTO[].class)
                 .getBody();
 
        if (response == null) throw new NotFoundException("The quotation list is not available");
