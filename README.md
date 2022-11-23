@@ -303,3 +303,4 @@ a LATAM, criando os artefatos necessários para permitir as seguintes funcionali
 ## :file_folder: Download Endpoints
 
 - [Collection (endpoints)](src/main/resources/projeto-integrador.postman_collection.json)
+- [Requirement 6 - Collection (coupon endpoints)](src/main/resources/req6-coupon.postman_collection.json)
