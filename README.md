@@ -241,8 +241,65 @@ a LATAM, criando os artefatos necessários para permitir as seguintes funcionali
 
 </details>
 
+<details>
+    <summary><h3> Requerimento 6</h3></summary>
+
+
+#### Create Coupon
+
+```http
+  POST localhost:8080/api/v1/fresh-products/coupon
+```
+
+###### **@RequestBody**
+
+```json
+{
+  "name": "MELIFRIDAY10",
+  "discount": 10,
+  "status": "ATIVO"
+}
+```
+
+#### List All Coupons
+
+```http
+  GET localhost:8080/api/v1/fresh-products/coupon
+```
+
+
+#### Find Coupon By Name
+
+```http
+  GET localhost:8080/api/v1/fresh-products/coupon/${name}
+```
+| Parâmetro | Tipo     | Descrição                                                    |
+|:----------|:---------|:-------------------------------------------------------------|
+| `name`    | `string` | **Obrigatório**. O nome do cupom que o usuário quer utilizar |
+
+
+#### Set Coupon to Expired
+
+```http
+  PUT localhost:8080/api/v1/fresh-products/coupon/${name}
+```
+| Parâmetro | Tipo     | Descrição                                                               |
+|:----------|:---------|:------------------------------------------------------------------------|
+| `name`    | `string` | **Obrigatório**. O nome do cupom que o manager quer setar como EXPIRADO |
+
+
+#### Delete Coupon
+
+```http
+  DELETE localhost:8080/api/v1/fresh-products/coupon/${name}
+```
+| Parâmetro | Tipo     | Descrição                                                  |
+|:----------|:---------|:-----------------------------------------------------------|
+| `name`    | `string` | **Obrigatório**. O nome do cupom que o manage quer deletar |
+
+</details>
+
 
 ## :file_folder: Download Endpoints
 
 - [Collection (endpoints)](src/main/resources/projeto-integrador.postman_collection.json)
-
