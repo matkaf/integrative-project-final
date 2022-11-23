@@ -3,7 +3,11 @@ package com.example.finalproject.controller;
 import com.example.finalproject.dto.PurchaseOrderCreateDTO;
 import com.example.finalproject.dto.PurchaseOrderDTO;
 import com.example.finalproject.dto.PurchaseOrderUpdateDTO;
+import com.example.finalproject.exception.PurchaseFailureException;
+import com.example.finalproject.model.Coupon;
+import com.example.finalproject.model.Enum.CouponStatus;
 import com.example.finalproject.model.PurchaseOrder;
+import com.example.finalproject.service.ICouponService;
 import com.example.finalproject.service.IPurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +23,9 @@ public class PurchaseOrderController {
     @Autowired
     private IPurchaseOrderService purchaseOrderService;
 
+    @Autowired
+    private ICouponService couponService;
+
     @PostMapping("/orders")
     public ResponseEntity<String> createPurchaseOrder(@Valid @RequestBody PurchaseOrderCreateDTO purchaseOrderCreateDTO) {
         PurchaseOrder purchaseOrder = PurchaseOrderCreateDTO.convertToPurchaseOrder(purchaseOrderCreateDTO);
@@ -31,7 +38,30 @@ public class PurchaseOrderController {
     }
 
     @PutMapping("/orders/{purchaseCode}")
-    public ResponseEntity<PurchaseOrderUpdateDTO> updatePurchaseStatus(@PathVariable Long purchaseCode) {
-        return new ResponseEntity<>(PurchaseOrderUpdateDTO.convertToResponse(purchaseOrderService.updatePurchaseStatus(purchaseCode)), HttpStatus.CREATED);
+    public ResponseEntity<PurchaseOrderUpdateDTO> updatePurchaseStatus(@PathVariable Long purchaseCode,
+                                                                       @RequestParam(name = "coupon") String coupon) {
+
+        if (coupon != null) {
+            Coupon activeCoupon = couponService.getByName(coupon);
+
+            if (activeCoupon.getStatus() == CouponStatus.EXPIRADO) {
+                throw new PurchaseFailureException("This coupon has expired. Please try another one!");
+            }
+
+            PurchaseOrderUpdateDTO purchaseOrder = PurchaseOrderUpdateDTO.convertToResponse(purchaseOrderService.updatePurchaseStatus(purchaseCode));
+
+
+            Double totalPrice = purchaseOrder.getTotalPrice();
+            Double discount = (double) (activeCoupon.getDiscount() / 100.);
+
+            Double newPrice = totalPrice - (discount * totalPrice);
+
+            purchaseOrder.setTotalPrice(newPrice);
+            return new ResponseEntity<>(purchaseOrder, HttpStatus.CREATED);
+        } else {
+            PurchaseOrderUpdateDTO purchaseOrder = PurchaseOrderUpdateDTO.convertToResponse(purchaseOrderService.updatePurchaseStatus(purchaseCode));
+
+            return new ResponseEntity<>(purchaseOrder, HttpStatus.CREATED);
+        }
     }
 }
