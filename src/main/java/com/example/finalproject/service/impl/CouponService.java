@@ -1,5 +1,6 @@
 package com.example.finalproject.service.impl;
 
+import com.example.finalproject.exception.InvalidArgumentException;
 import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.model.Enum.CouponStatus;
 import com.example.finalproject.repository.CouponRepo;
@@ -10,6 +11,7 @@ import com.example.finalproject.service.ICouponService;
 import com.example.finalproject.model.Coupon;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CouponService implements ICouponService {
@@ -19,6 +21,8 @@ public class CouponService implements ICouponService {
 
     @Override
     public Coupon create(Coupon coupon) {
+        Optional<Coupon> previousCoupon = couponRepo.findCouponByName(coupon.getName());
+        if (previousCoupon.isPresent()) throw new InvalidArgumentException("Coupon already exists.");
         return couponRepo.save(coupon);
     }
 
