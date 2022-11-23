@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "d23e078a-65db-4e18-8f01-e1bcf630f685",
+		"name": "Requisito 06 - Matheus Kaffka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23677396"
+	},
+	"item": [
+		{
+			"name": "Create Coupon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"BLACK10\",\n    \"discount\": 10,\n    \"status\": \"ATIVO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/api/v1/fresh-products/coupon",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"coupon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Coupon by Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/api/v1/fresh-products/coupon/black10",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"coupon",
+						"black10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Coupons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/api/v1/fresh-products/coupon",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"coupon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Coupon to Expired",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"BLACK10\",\n    \"category\": \"CONGELADO\",\n    \"discount\": 12,\n    \"status\": \"ATIVO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/api/v1/fresh-products/coupon/black10",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"coupon",
+						"black10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Coupon by Name",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/api/v1/fresh-products/coupon/black10",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"coupon",
+						"black10"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
